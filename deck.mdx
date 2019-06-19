@@ -1,1 +1,217 @@
+import code from "@mdx-deck/themes/code";
+import highlight from "@mdx-deck/themes/syntax-highlighter-prism";
+import { FullScreenCode } from "mdx-deck/layouts";
+
+export const themes = [code, highlight];
+
 # Learning React
+
+<p>elements, JSX, props &amp; state &amp; setState, component lifecycle</p>
+
+---
+
+# JSX
+
+---
+
+<FullScreenCode>
+
+```jsx
+function App(props) {
+  return (
+    <div
+      aria-role={props.role}
+      className={props.className}
+    >
+      {props.children}
+    </div>
+  );
+}
+```
+
+</FullScreenCode>
+
+---
+
+<FullScreenCode>
+
+```jsx
+<App role="primary" className="MyApp">
+  <p>hello world!</p>
+</App>
+```
+
+</FullScreenCode>
+
+---
+
+<FullScreenCode>
+
+```jsx
+React.createElement({
+  'div',
+  {
+    role: 'primary',
+    className:'MyApp',
+    children: React.createElement('p',{
+      children: 'hello world!'
+    })
+  }
+});
+```
+
+</FullScreenCode>
+
+---
+
+JSX makes composing React components readable
+
+---
+
+Since we are dealing with `React.Element` objects in `render()`
+we do not have access to DOM functionality.
+
+---
+
+# Props
+
+---
+
+Equivalent to function arguments
+
+---
+
+But our UIs need to respond to user interactions…
+
+---
+
+So how do we respond to change?
+
+---
+
+<FullScreenCode>
+
+```jsx
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        Counter: {props.count}
+        <button>+1</button>
+      </div>
+    );
+  }
+}
+```
+
+</FullScreenCode>
+
+---
+
+# State
+
+---
+
+state = change
+
+---
+
+There are many ways to maintain state
+
+---
+
+<FullScreenCode>
+
+```jsx
+class App extends React.Component {
+  state = {
+    count: 0
+  };
+
+  render() {
+    return (
+      <div>
+        Counter: {this.state.count}
+        <button
+          onClick={() =>
+            setState(s => s.count++)
+          }
+        >
+          +1
+        </button>
+      </div>
+    );
+  }
+}
+```
+
+</FullScreenCode>
+
+---
+
+<FullScreenCode>
+
+```jsx
+function Total(props) {
+  return <p>Counter: {props.count}</p>;
+}
+```
+
+</FullScreenCode>
+
+---
+
+<FullScreenCode>
+
+```jsx
+class App extends React.Component {
+  state = {
+    count: 0
+  };
+
+  render() {
+    return (
+      <div>
+        <Total count={this.state.count} />
+        <button
+          onClick={() =>
+            setState(s => s.count++)
+          }
+        >
+          +1
+        </button>
+      </div>
+    );
+  }
+}
+```
+
+</FullScreenCode>
+
+---
+
+# Component lifecycle
+
+---
+
+## Mount
+
+When the component is first added to the page
+
+---
+
+## Update
+
+When the component is updated
+
+---
+
+- Prop change
+- State change (via `setState()`)
+- Parent component updates
+
+---
+
+## Unmount
+
+When the component is removed from the page
